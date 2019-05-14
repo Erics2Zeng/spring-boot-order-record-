@@ -17,7 +17,7 @@ public interface OrderMapper {
 
     @Select("select a.* ,b.name as customerName from orders a " +
             "left join customer b on a.customerId = b.id " +
-            "where a.userId = #{userId} and a.createTime = (select max(createTime) from orders)")
+            "where a.userId = #{userId} and a.createTime = (select max(createTime) from orders where userId =#{#userId})")
     List<Map> getLatestOrder(int userId);
 
     @Insert("insert into orders(customerID,userId,productName,createTime,count,unit,price,totalPrice,isPayed) " +
